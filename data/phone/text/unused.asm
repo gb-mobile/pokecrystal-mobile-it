@@ -1,0 +1,3 @@
+UnusedPhoneText:
+	text "Buongiorno."
+	done
