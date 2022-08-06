@@ -889,8 +889,8 @@ Function89655:
 Function8966c:
 	push bc
 	call Function89688 ; create the background
-	hlcoord 0, 0;4, 0 ; Extended for longer translations
-	ld c, 16;8 ; Extended for longer translations
+	hlcoord 3, 0;4, 0
+	ld c, 10;8
 	call Function896f5 ; create borders
 	pop bc
 	ret
@@ -898,8 +898,8 @@ Function8966c:
 Function8967a:
 	push bc
 	call Function89688
-	hlcoord 0, 0;2, 0 ; Extended for longer translations
-	ld c, 16;12 ; Extended for longer translations
+	hlcoord 1, 0;2, 0
+	ld c, 14;12
 	call Function896f5
 	pop bc
 	ret
@@ -1267,7 +1267,7 @@ Function8987f: ; creates the card's layout (own card)
 	call Function895f2
 	call Function8967a
 	call Function899d3
-	hlcoord 2, 1;5, 1 ; Expanded for longer translations
+	hlcoord 3, 1;5, 1 
 	call Function8999c
 	hlcoord 13, 3
 	call Function89829
@@ -1459,17 +1459,17 @@ Function8998b:
 	ret
 
 Function8999c:
-	ld de, wPlayerName
-	call PlaceString
+	ld de, String_899ac
+	call PlaceString	
 	;inc bc ; whitespace not needed
 	ld h, b
 	ld l, c
-	ld de, String_899ac
+	ld de, wPlayerName
 	call PlaceString
 	ret
 
 String_899ac:
-	db "'S CARD@";"の　めいし@"
+	db "SCHEDA @";"の　めいし@"
 
 Function899b2:
 	ld bc, wPlayerName
