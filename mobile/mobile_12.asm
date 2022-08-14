@@ -65,34 +65,34 @@ InitMobileProfile:
 	ld b, $a
 	ld c, $12
 	call Function48cdc
-	hlcoord 2, 4
+	hlcoord 2, 4 ; Position of Gender string
 	ld de, MobileString_Gender
 	call PlaceString
 .asm_480d7
-	hlcoord 2, 6
+	hlcoord 2, 6 ; Position of Age string
 	ld de, MobileString_Age
 	call PlaceString
-	hlcoord 2, 8
+	hlcoord 2, 8 ; Position of Address string
 	ld de, MobileString_Address
 	call PlaceString
-	hlcoord 2, 10
+	hlcoord 2, 10 ; Position of Zip Code string
 	ld de, MobileString_ZipCode
 	call PlaceString
-	hlcoord 2, 12
+	hlcoord 2, 12  ; Position of OK string
 	ld de, MobileString_OK
 	call PlaceString
 	ld a, [wd002]
 	bit 6, a
 	jr nz, .asm_48113
 	ld a, [wPlayerGender]
-	ld hl, Strings_484fb
+	ld hl, Strings_484fc
 	call GetNthString
 	ld d, h
 	ld e, l
-	hlcoord 11, 4
+	hlcoord 11, 5 ; Default gender position in MOBILE menu
 	call PlaceString
 .asm_48113
-	hlcoord 11, 6
+	hlcoord 15, 7 ; Default age position in MOBILE menu
 	call Function487ec
 	ld a, [wd474]
 	dec a
@@ -100,15 +100,15 @@ InitMobileProfile:
 	call GetNthString
 	ld d, h
 	ld e, l
-	hlcoord 11, 8
-	call PlaceString
-	hlcoord 11, 10
+	hlcoord 13, 9 ; Default Prefectures position in MOBILE menu
+	call PlaceString 
+	hlcoord 13, 11 ; Zip Code Position in MOBILE menu
 	call Function489ea
-	hlcoord 0, 14
+	hlcoord 0, 14 ; 'Personal Info' box position 
 	ld b, $2
 	ld c, $12
 	call Textbox
-	hlcoord 1, 16
+	hlcoord 1, 16 ; 'Personal Info' text position
 	ld de, MobileString_PersonalInfo
 	call PlaceString
 	call Function48187
@@ -173,19 +173,19 @@ Function48187:
 	bit 0, d
 	jr nz, .asm_481c1
 	lb bc, 1, 8
-	hlcoord 11, 4
+	hlcoord 11, 5 ; Gender position
 	call ClearBox
 .asm_481c1
 	bit 1, d
 	jr nz, .asm_481ce
 	lb bc, 1, 8
-	hlcoord 11, 6
+	hlcoord 11, 7 ; Age position ; Don't change
 	call ClearBox
 .asm_481ce
 	bit 2, d
 	jr nz, .asm_481db
 	lb bc, 2, 8
-	hlcoord 11, 7
+	hlcoord 11, 9 ; prefecture position
 	call ClearBox
 .asm_481db
 	bit 3, d
@@ -194,7 +194,7 @@ Function48187:
 	bit 0, a
 	jr nz, .asm_481f8
 	lb bc, 1, 8
-	hlcoord 11, 10
+	hlcoord 11, 11 ; Zip code location
 	call ClearBox
 	jr .asm_48201
 .asm_481f1
@@ -202,14 +202,14 @@ Function48187:
 	bit 0, a
 	jr nz, .asm_48201
 .asm_481f8
-	hlcoord 11, 10
+	hlcoord 8, 11 ; Position of 'Tell Later' after selecting
 	ld de, .String_TellLater
 	call PlaceString
 .asm_48201
 	ret
 
 .String_TellLater:
-	db "LATER   @"
+	db "Tell Later@"
 
 Function4820d:
 	call PlaceHollowCursor
@@ -282,14 +282,14 @@ asm_4828d:
 	ld hl, MenuHeader_0x484f1
 	call LoadMenuHeader
 	call Function4873c
-	hlcoord 11, 2
+	hlcoord 13, 2 ; Gender menu position
 	ld b, $4
-	ld c, $7
+	ld c, $5
 	call Function48cdc
-	hlcoord 13, 4
+	hlcoord 15, 4 ; Position of Male Gender string in Gender menu
 	ld de, String_484fb
 	call PlaceString
-	hlcoord 13, 6
+	hlcoord 15, 6 ; Position of Female Gender string in Gender menu
 	ld de, String_484ff
 	call PlaceString
 	call WaitBGMap
@@ -303,7 +303,7 @@ asm_4828d:
 	jp z, Function4840c
 	ld hl, wMenuCursorY
 	ld a, [hl]
-	ld hl, Strings_484fb
+	ld hl, Strings_484fc
 	cp $1
 	jr z, .asm_482ed
 .asm_482e1
@@ -319,7 +319,7 @@ asm_4828d:
 .asm_482f1
 	ld d, h
 	ld e, l
-	hlcoord 11, 4
+	hlcoord 14, 5 ; Gender position
 	call PlaceString
 	ld a, [wd003]
 	set 0, a
@@ -444,9 +444,9 @@ Function483bb:
 	ld e, l
 	ld b, $2
 	ld c, $8
-	hlcoord 11, 7
+	hlcoord 11, 8 ; ??? Clears the surrounding tiles when prefecture is selected, needs to be moved with preferectures
 	call ClearBox
-	hlcoord 11, 8
+	hlcoord 13, 9 ; Prefectures position when selected
 	call PlaceString
 	ret
 
@@ -456,7 +456,7 @@ Function483e8:
 	ld a, [wMenuSelection]
 	cp $ff
 	jr nz, .asm_483f8
-	ld hl, Wakayama ; last string
+	ld hl, Serravalle ; last string
 	jr .asm_48405
 
 .asm_483f8
@@ -538,12 +538,13 @@ Mobile12_Bin2Dec:
 	db "7@"
 	db "8@"
 	db "9@"
+	db " @"	
 
-MobileProfileString:         db "  MOBILE PROFILE@"
-MobileString_Gender:         db "GENDER@"
-MobileString_Age:            db "AGE@"
-MobileString_Address:        db "ADDRESS@"
-MobileString_ZipCode:        db "ZIP CODE@"
+MobileProfileString:         db "  Mobile Profile@"
+MobileString_Gender:         db "Gender@"
+MobileString_Age:            db "Age@"
+MobileString_Address:        db "Address@"
+MobileString_ZipCode:        db "Zip Code@"
 MobileString_OK:             db "OK@"
 MobileString_ProfileChanged: db "Profile Changed@"
 MobileDesc_Gender:           db "Boy or girl?@"
@@ -553,7 +554,7 @@ MobileDesc_ZipCode:          db "Your zip code?@"
 
 MenuHeader_0x484f1:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 11, 2, SCREEN_WIDTH - 1, 7
+	menu_coords 10, 2, SCREEN_WIDTH - 1, 7 ; For clearing the Gender box
 	dw MenuData_0x484f9
 	db 1 ; default option
 
@@ -561,24 +562,29 @@ MenuData_0x484f9:
 	db STATICMENU_CURSOR | STATICMENU_WRAP ; flags
 	db 2 ; items
 Strings_484fb:
-String_484fb: db "Bambino@"
-String_484ff: db "Bambina@"
+String_484fb: db "Boy@"
+String_484ff: db "Girl@"
+Strings_484fc:
+String_484fc: db " Boy@"
+String_48500: db "Girl@"
 
 MenuHeader_0x48504:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 10, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+	menu_coords 10, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1 ; For clearing the Address Box
 
 MenuHeader_0x48509:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 10, 5, SCREEN_WIDTH - 1, 7
+	menu_coords 10, 5, SCREEN_WIDTH - 1, 8 ; For clearing the Age Box
 
 MenuHeader_0x4850e:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 10, 9, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+	menu_coords 10, 10, SCREEN_WIDTH - 1, TEXTBOX_Y - 0 ; For clearing the Zip Code box
+	
+	;Bounding of left side ; bounding of top ; bounding of right side ; bounding of bottom
 
 MenuHeader_0x48513:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 11, 1, 18, 12
+	menu_coords 11, 1, 18, 12 ; The placement of the text in the address box
 	dw MenuData_0x4851b
 	db 1 ; default option
 
@@ -592,62 +598,130 @@ MenuData_0x4851b:
 	dba NULL
 
 .Items:
-	db 46
+	db 114 ; The number of locations in the prefectures list (-1 because it starts at 0)
 x = 0
-rept 46
+rept 114 ; The number of locations in the prefectures list (-1 because it starts at 0)
 	db x
 x = x + 1
 endr
 	db -1
 
 Prefectures: ; Some names shortened to fit, check for official initials later.
-Aichi:		db	"Aichi@" 	; "あいちけん@"
-Aomori:		db	"Aomori@" 	; "あおもりけん@"
-Akita:		db	"Akita@" 	; "あきたけん@"
-Ishikawa:	db	"Ishika-@"  ; "いしかわけん@"
-Ibaraki:	db	"Ibaraki@" 	; "いばらきけん@"
-Iwate:		db	"Iwate@" 	; "いわてけん@"
-Ehime:		db	"Ehime@" 	; "えひめけん@"
-Oita:		db	"Oita@" 	; "おおいたけん@"
-Osakafu:	db	"Osakafu@" 	; "おおさかふ@"
-Okayama:	db	"Okayama@" 	; "おかやまけん@"
-Okinawa:	db	"Okinawa@" 	; "おきなわけん@"
-Kagawa:		db	"Kagawa@" 	; "かがわけん@"
-Kagoshima:	db	"Kagosh-@"  ; "かごしまけん@"
-Kanagawa:	db	"Kanaga-@"  ; "かながわけん@"
-Gifu:		db	"Gifu@" 	; "ぎふけん@"
-Kyotofu:	db	"Kyotofu@" 	; "きょうとふ@"
-Kumamoto:	db	"Kumamo-@"  ; "くまもとけん@"
-Gunma:		db	"Gunma@" 	; "ぐんまけん@"
-Kochi:		db	"Kochi@" 	; "こうちけん@"
-Saitama:	db	"Saitama@" 	; "さいたまけん@"
-Saga:		db	"Saga@" 	; "さがけん@"
-Shiga:		db	"Shiga@" 	; "しがけん@"
-Shizuoka:	db	"Shizuo-@"  ; "しずおかけん@"
-Shimane:	db	"Shimane@" 	; "しまねけん@"
-Chiba:		db	"Chiba@" 	; "ちばけん@"
-Tokyo:		db	"Tokyo@" 	; "とうきょうと@"
-Tokushima:	db	"Tokush-@"  ; "とくしまけん@"
-Tochigi:	db	"Tochigi@" 	; "とちぎけん@"
-Tottori:	db	"Tottori@" 	; "とっとりけん@"
-Toyama:		db	"Toyama@" 	; "とやまけん@"
-Nagasaki:	db	"Nagasa-@"  ; "ながさきけん@"
-Nagano:		db	"Nagano@" 	; "ながのけん@"
-Naraken:	db	"Naraken@" 	; "ならけん@"
-Niigata:	db	"Niigata@" 	; "にいがたけん@"
-Hyogo:		db	"Hyogo@" 	; "ひょうごけん@"
-Hiroshima:	db	"Hirosh-@"  ; "ひろしまけん@"
-Fukui:		db	"Fukui@" 	; "ふくいけん@"
-Fukuoka:	db	"Fukuoka@" 	; "ふくおかけん@"
-Fukushima:	db	"Fukush-@"  ; "ふくしまけん@"
-Hokkaido:	db	"Hokkai-@"  ; "ほっかいどう@"
-Mie:		db	"Mie@" 		; "みえけん@"
-Miyagi:		db	"Miyagi@" 	; "みやぎけん@"
-Miyazaki:	db	"Miyaza-@"  ; "みやざきけん@"
-Yamagata:	db	"Yamaga-@"	; "やまがたけん@"
-Yamaguchi:	db	"Yamagu-@"	; "やまぐちけん@"
-Yamanashi:	db	"Yamana-@"	; "やまなしけん@"
-Wakayama:	db	"Wakaya-@"	; "わかやまけん@"
+Aargau:					db		"CH-AG@" ; Aargau
+Appenzell_Innerrhoden:	db		"CH-AI@" ; Appenzell Innerrhoden
+Appenzell_Ausserrhoden:	db		"CH-AR@" ; Appenzell Ausserrhoden
+Berne:					db		"CH-BE@" ; Berne
+Basel_Landschaft:		db		"CH-BL@" ; Basel-Landschaft
+Basel_Stadt:			db		"CH-BS@" ; Basel-Stadt
+Fribourg:				db		"CH-FR@" ; Fribourg
+Geneve:					db		"CH-GE@" ; Genève
+Glarus:					db		"CH-GL@" ; Glarus
+Graubunden:				db		"CH-GR@" ; Graubünden
+Jura:					db		"CH-JU@" ; Jura
+Luzer:					db		"CH-LU@" ; Luzer
+Neuchatel:				db		"CH-NE@" ; Neuchâtel
+Nidwalden:				db		"CH-NW@" ; Nidwalden
+Obwalden:				db		"CH-OW@" ; Obwalden
+Sankt_Gallen:			db		"CH-SG@" ; Sankt Gallen
+Schaffhausen:			db		"CH-SH@" ; Schaffhausen
+Solothurn:				db		"CH-SO@" ; Solothurn
+Schwyz:					db		"CH-SZ@" ; Schwyz
+Thurgau:				db		"CH-TG@" ; Thurgau
+Ticino:					db		"CH-TI@" ; Ticino
+Uri:					db		"CH-UR@" ; Uri
+Vaud:					db		"CH-VD@" ; Vaud
+Valais:					db		"CH-VS@" ; Valais
+Zug:					db		"CH-ZG@" ; Zug
+Zurich:					db		"CH-ZH@" ; Zürich
+Alessandria:			db		"IT-AL@" ; Alessandria
+Ancona:					db		"IT-AN@" ; Ancona
+Ascoli_Piceno:			db		"IT-AP@" ; Ascoli Piceno
+LAquila:				db		"IT-AQ@" ; L'Aquila
+Arezzo:					db		"IT-AR@" ; Arezzo
+Asti:					db		"IT-AT@" ; Asti
+Avellino:				db		"IT-AV@" ; Avellino
+Bergamo:				db		"IT-BG@" ; Bergamo
+Biella:					db		"IT-BI@" ; Biella
+Belluno:				db		"IT-BL@" ; Belluno
+Benevento:				db		"IT-BN@" ; Benevento
+Brindisi:				db		"IT-BR@" ; Brindisi
+Brescia:				db		"IT-BS@" ; Brescia
+Barletta_Andria_Trani:	db		"IT-BT@" ; Barletta-Andria-Trani
+Campobasso:				db		"IT-CB@" ; Campobasso
+Caserta:				db		"IT-CE@" ; Caserta
+Chieti:					db		"IT-CH@" ; Chieti
+Cuneo:					db		"IT-CN@" ; Cuneo
+Como:					db		"IT-CO@" ; Como
+Cremona:				db		"IT-CR@" ; Cremona
+Cosenza:				db		"IT-CS@" ; Cosenza
+Catanzaro:				db		"IT-CZ@" ; Catanzaro
+Forli_Cesena:			db		"IT-FC@" ; Forlì-Cesena
+Ferrara:				db		"IT-FE@" ; Ferrara
+Foggia:					db		"IT-FG@" ; Foggia
+Fermo:					db		"IT-FM@" ; Fermo
+Frosinone:				db		"IT-FR@" ; Frosinone
+Grosseto:				db		"IT-GR@" ; Grosseto
+Imperia:				db		"IT-IM@" ; Imperia
+Isernia:				db		"IT-IS@" ; Isernia
+Crotone:				db		"IT-KR@" ; Crotone
+Lecco:					db		"IT-LC@" ; Lecco
+Lecce:					db		"IT-LE@" ; Lecce
+Livorno:				db		"IT-LI@" ; Livorno
+Lodi:					db		"IT-LO@" ; Lodi
+Latina:					db		"IT-LT@" ; Latina
+Lucca:					db		"IT-LU@" ; Lucca
+Monza_e_Brianza:		db		"IT-MB@" ; Monza e Brianza
+Macerata:				db		"IT-MC@" ; Macerata
+Mantova:				db		"IT-MN@" ; Mantova
+Modena:					db		"IT-MO@" ; Modena
+Massa_Carrara:			db		"IT-MS@" ; Massa-Carrara
+Matera:					db		"IT-MT@" ; Matera
+Novara:					db		"IT-NO@" ; Novara
+Nuoro:					db		"IT-NU@" ; Nuoro
+Oristano:				db		"IT-OR@" ; Oristano
+Piacenza:				db		"IT-PC@" ; Piacenza
+Padova:					db		"IT-PD@" ; Padova
+Pescara:				db		"IT-PE@" ; Pescara
+Perugia:				db		"IT-PG@" ; Perugia
+Pisa:					db		"IT-PI@" ; Pisa
+Prato:					db		"IT-PO@" ; Prato
+Parma:					db		"IT-PR@" ; Parma
+Pistoia:				db		"IT-PT@" ; Pistoia
+Pesaro_e_Urbino:		db		"IT-PU@" ; Pesaro e Urbino
+Pavia:					db		"IT-PV@" ; Pavia
+Potenza:				db		"IT-PZ@" ; Potenza
+Ravenna:				db		"IT-RA@" ; Ravenna
+Reggio_Emilia:			db		"IT-RE@" ; Reggio Emilia
+Rieti:					db		"IT-RI@" ; Rieti
+Rimini:					db		"IT-RN@" ; Rimini
+Rovigo:					db		"IT-RO@" ; Rovigo
+Salerno:				db		"IT-SA@" ; Salerno
+Siena:					db		"IT-SI@" ; Siena
+Sondrio:				db		"IT-SO@" ; Sondrio
+La_Spezia:				db		"IT-SP@" ; La Spezia
+Sassari:				db		"IT-SS@" ; Sassari
+Sud_Sardegna:			db		"IT-SU@" ; Sud Sardegna
+Savona:					db		"IT-SV@" ; Savona
+Taranto:				db		"IT-TA@" ; Taranto
+Teramo:					db		"IT-TE@" ; Teramo
+Terni:					db		"IT-TR@" ; Terni
+Treviso:				db		"IT-TV@" ; Treviso
+Varese:					db		"IT-VA@" ; Varese
+Verbano_Cusio_Ossola:	db		"IT-VB@" ; Verbano-Cusio-Ossola
+Vercelli:				db		"IT-VC@" ; Vercelli
+Vicenza:				db		"IT-VI@" ; Vicenza
+Verona:					db		"IT-VR@" ; Verona
+Viterbo:				db		"IT-VT@" ; Viterbo
+Vibo_Valentia:			db		"IT-VV@" ; Vibo Valentia
+Acquaviva:				db		"SM-01@" ; Acquaviva
+Chiesanuova:			db		"SM-02@" ; Chiesanuova
+Domagnano:				db		"SM-03@" ; Domagnano
+Faetano:				db		"SM-04@" ; Faetano
+Fiorentino:				db		"SM-05@" ; Fiorentino
+Borgo_Maggiore:			db		"SM-06@" ; Borgo Maggiore
+Citta_di_San_Marino:	db		"SM-07@" ; Città di San Marino
+Montegiardino:			db		"SM-08@" ; Montegiardino
+Serravalle:				db		"SM-09@" ; Serravalle
 
 Function48689:
 	ld c, 7
@@ -776,7 +850,7 @@ Function4873c:
 	ld hl, w2DMenuCursorInitY
 	ld a, 4
 	ld [hli], a
-	ld a, 12
+	ld a, 14 ; x axis position of the gender cursor
 	ld [hli], a ; init x
 	ld a, 2
 	ld [hli], a ; num rows
@@ -824,9 +898,9 @@ Function4876f:
 	push af
 	ld a, $1
 	ldh [hInMenu], a
-	hlcoord 10, 5
+	hlcoord 14, 6 ; Age menu position
 	ld b, $1
-	ld c, $8
+	ld c, $4
 	call Function48cdc
 	call WaitBGMap
 	ld a, [wd473]
@@ -834,20 +908,20 @@ Function4876f:
 	jr z, .asm_487ab
 	cp $64
 	jr z, .asm_487b2
-	hlcoord 12, 5
+	hlcoord 16, 6 ; Age menu up arrow position
 	ld [hl], $10
-	hlcoord 12, 7
+	hlcoord 16, 8 ; Age menu down arrow position (probably)
 	ld [hl], $11
 	jr .asm_487b7
 .asm_487ab
-	hlcoord 12, 5
+	hlcoord 16, 6 ; Age menu up arrow position
 	ld [hl], $10
 	jr .asm_487b7
 .asm_487b2
-	hlcoord 12, 7
+	hlcoord 16, 8 ; Age menu down arrow position (probably)
 	ld [hl], $11
 .asm_487b7
-	hlcoord 11, 6
+	hlcoord 15, 7 ; Age position
 	call Function487ec
 	ld c, 10
 	call DelayFrames
@@ -866,7 +940,7 @@ Function4876f:
 .asm_487da
 	ld a, [wd473]
 	call ExitMenu
-	hlcoord 11, 6
+	hlcoord 15, 7 ; Age position
 	call Function487ec
 	pop af
 	ldh [hInMenu], a
@@ -964,28 +1038,28 @@ Function4880e:
 	cp $64
 	jr z, .asm_48898
 	jr z, .asm_488a7
-	hlcoord 12, 5
+	hlcoord 16, 6 ; Age menu up arrow position
 	ld [hl], $10
-	hlcoord 12, 7
+	hlcoord 16, 8 ; Age menu down arrow position
 	ld [hl], $11
 	jr .asm_488a7
 .asm_48887
-	hlcoord 10, 5
+	hlcoord 14, 6 ; Age menu up arrow position when using D-Pad
 	ld b, $1
-	ld c, $8
+	ld c, $4
 	call Function48cdc
-	hlcoord 12, 5
+	hlcoord 16, 6 ; Age menu up arrow position when using D-Pad
 	ld [hl], $10
 	jr .asm_488a7
 .asm_48898
-	hlcoord 10, 5
+	hlcoord 14, 6 ; Age menu up arrow position when using D-Pad
 	ld b, $1
-	ld c, $8
+	ld c, $4
 	call Function48cdc
-	hlcoord 12, 7
+	hlcoord 16, 8 ; Age menu down arrow position when using D-Pad
 	ld [hl], $11
 .asm_488a7
-	hlcoord 11, 6
+	hlcoord 15, 7 ; Age position
 	call Function487ec
 	call WaitBGMap
 	ld a, $1
@@ -1024,14 +1098,14 @@ Function488d3:
 	push af
 	ld a, $1
 	ldh [hInMenu], a
-	hlcoord 10, 9
-	ld b, $1
-	ld c, $8
+	hlcoord 12, 10
+	ld b, $1 ; Zip Code Menu starting point
+	ld c, $6 ; Zip Code Menu width
 	call Function48cdc
 	ld a, [wd475]
 	and $f
 	ld d, $0
-	hlcoord 11, 10
+	hlcoord 13, 11 ; Zip Code Position
 	call Function489ea
 	call WaitBGMap
 	ld a, [wd475]
@@ -1115,7 +1189,7 @@ asm_48972:
 	and $cf
 	ld [wd002], a
 .asm_48988
-	hlcoord 11, 10
+	hlcoord 13, 11 ; Zip code location
 	ld b, $0
 	ld c, d
 	add hl, bc
@@ -1161,16 +1235,16 @@ asm_48972:
 	pop bc
 	pop af
 	call ExitMenu
-	hlcoord 11, 10
+	hlcoord 13, 11 ; Zip Code location
 	call Function489ea
-	hlcoord 11, 9
-	lb bc, 1, 8
+	hlcoord 8, 11 ; Location of a clear box to clear any excess characters if 'Tell Now' is selected, but cannot overlap the position of the zip code itself, because otherwise it will clear that too.
+	lb bc, 1, 4 ; Determines the size of the clearing box
 	call ClearBox
 	pop af
 	ldh [hInMenu], a
 	jp Function4840c
 
-Function489ea:
+Function489ea: ; Flashing zip code numbers?
 	push de
 	ld a, [wd475]
 	and $f
@@ -1184,9 +1258,9 @@ Function489ea:
 	and $f
 	inc hl
 	call Mobile12_Bin2Dec
-	inc hl
-	ld de, String_48a38
-	call PlaceString
+	;inc hl ; Responsible for the gap where "-" existed
+	;ld de, String_48a38
+	;call PlaceString
 	ld a, [wd477]
 	and $f0
 	swap a
@@ -1196,20 +1270,20 @@ Function489ea:
 	and $f
 	inc hl
 	call Mobile12_Bin2Dec
-	ld a, [wd478]
-	and $f0
-	swap a
-	inc hl
-	call Mobile12_Bin2Dec
-	ld a, [wd478]
-	and $f
-	inc hl
-	call Mobile12_Bin2Dec
+	;ld a, [wd478]
+	;and $f
+	;swap a
+	;inc hl
+	;call Mobile12_Bin2Dec
+	;ld a, [wd478]
+	;and $f
+	;inc hl
+	;call Mobile12_Bin2Dec
 	pop de
 	ret
 
 String_48a38:
-	db "-@"
+	db "-@" ; Unused
 
 Function48a3a:
 	ld hl, MenuHeader_0x48a9c
@@ -1217,15 +1291,15 @@ Function48a3a:
 	call Function4873c
 	ld a, $a
 	ld [w2DMenuCursorInitY], a
-	ld a, $b
+	ld a, $8 ; Y Placement of 'Tell Now' 'Tell Later' Cursor
 	ld [w2DMenuCursorInitX], a
-	ld a, $1
+	ld a, $1 ; X Placement of 'Later' Cursor
 	ld [wMenuCursorY], a
-	hlcoord 10, 8
+	hlcoord 7, 8 ; Placement of 'Tell Now' 'Tell Later' Box
 	ld b, $4
-	ld c, $8
+	ld c, $b
 	call Function48cdc
-	hlcoord 12, 10
+	hlcoord 9, 10 ; Placement of 'Tell Now' 'Tell Later' Text
 	ld de, String_48aa1
 	call PlaceString
 	call StaticMenuJoypad
@@ -1259,13 +1333,13 @@ Function48a9a:
 
 MenuHeader_0x48a9c:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 10, 8, SCREEN_WIDTH - 1, 13
+	menu_coords 5, 8, SCREEN_WIDTH - 1, 13 ; For clearing the 'Tell Later' 'Tell Now' Box
 
 String_48aa1:
-	db   "NOW"
-	next "LATER@"
+	db   "Tell Now"
+	next "Tell Later@"
 
-Function48ab5:
+Function48ab5: ; Zip code menu controls
 	ldh a, [hJoyPressed]
 	and A_BUTTON
 	jp nz, Function48c0f
@@ -1329,7 +1403,7 @@ Function48ab5:
 	push hl
 	push af
 	ld e, $0
-	hlcoord 11, 10
+	hlcoord 13, 11 ; Zip code location
 	ld a, d
 .asm_48b25
 	and a
@@ -1337,7 +1411,7 @@ Function48ab5:
 	inc e
 	dec a
 	jr .asm_48b25
-.asm_48b2c
+.asm_48b2c ; zip code number controls
 	ld hl, hJoyLast
 	ld a, [hl]
 	and D_UP
@@ -1351,7 +1425,7 @@ Function48ab5:
 	ld a, [hl]
 	and D_RIGHT
 	jr nz, .asm_48b9d
-	hlcoord 11, 10
+	hlcoord 13, 11 ; Zip Code Location
 	call Function489ea
 	ld a, [wd002]
 	bit 7, a
@@ -1361,7 +1435,7 @@ Function48ab5:
 	pop bc
 	and a
 	ret
-.asm_48b55
+.asm_48b55 ; press down, zip code number menu
 	pop af
 	ld b, a
 	and $f
@@ -1370,24 +1444,24 @@ Function48ab5:
 	jr nz, .asm_48b61
 	and $f0
 	add $a
-.asm_48b61
+.asm_48b61 ; change value when pressing down?
 	dec a
 .asm_48b62
 	push de
 	push af
-	hlcoord 10, 9
-	ld b, $1
-	ld c, $8
+	hlcoord 12, 10
+	ld b, $1 ; Zip Code Menu starting point
+	ld c, $6 ; Zip Code Menu width
 	call Function48cdc
 	pop af
 	pop de
-	hlcoord 11, 10
+	hlcoord 10, 9 ; hlcoord 11, 10
 	ld b, a
 	ld a, d
 	cp $3
 	jr c, .asm_48b7a
 	inc hl
-.asm_48b7a
+.asm_48b7a ; changes zip code number tiles
 	ld a, b
 	pop hl
 	bit 7, a
@@ -1399,27 +1473,27 @@ Function48ab5:
 .asm_48b88
 	ld a, $f0
 	jp Function48c00
-.asm_48b8d
+.asm_48b8d ; press up, zip code number menu
 	pop af
 	ld b, a
 	and $f
-	cp $9
+	cp $a ; Controls how far you can scroll through digitstrings in zip code menu
 	ld a, b
 	jr c, .asm_48b9a
 	and $f0
 	add $ff
-.asm_48b9a
+.asm_48b9a ; press up, zip code number menu
 	inc a
 	jr .asm_48b62
-.asm_48b9d
+.asm_48b9d ; press up, zip code number menu
 	push de
-	hlcoord 10, 9
-	ld b, $1
-	ld c, $8
+	hlcoord 12, 10
+	ld b, $1 ; Zip Code Menu starting point
+	ld c, $6 ; Zip Code Menu width
 	call Function48cdc
 	pop de
 	ld a, d
-	cp $6
+	cp $4 ; Limits how far you can press D_RIGHT
 	jr nc, .asm_48baf
 	inc d
 .asm_48baf
@@ -1427,7 +1501,7 @@ Function48ab5:
 	pop hl
 	ld b, a
 	ld a, d
-	cp $6
+	cp $5
 	ld a, b
 	jr z, .asm_48bc4
 	bit 7, a
@@ -1437,12 +1511,12 @@ Function48ab5:
 	swap a
 	and $f
 	jr asm_48bc7
-.asm_48bc4
+.asm_48bc4 ; press left, zip code number menu
 	ld a, [hl]
 	and $f
 
 asm_48bc7:
-	hlcoord 11, 10
+	hlcoord 10, 9
 	push af
 	ld a, d
 	cp $3
@@ -1456,9 +1530,9 @@ asm_48bc7:
 
 Function48bd7:
 	push de
-	hlcoord 10, 9
-	ld b, $1
-	ld c, $8
+	hlcoord 12, 10
+	ld b, $1 ; Zip Code Menu starting point
+	ld c, $6 ; Zip Code Menu width
 	call Function48cdc
 	pop de
 	ld a, d
@@ -1487,7 +1561,7 @@ Function48bd7:
 
 Function48c00:
 	push af
-	hlcoord 11, 10
+	hlcoord 13, 11 ; Zip code location
 	call Function489ea
 	ld a, $1
 	and a
@@ -1508,7 +1582,7 @@ Function48c11:
 	bit 7, a
 	jr z, .asm_48c20
 	ld a, d
-	cp $3
+	cp $6 ; Controls the location of the jump in Zip code digit highlights after the dash
 	jr c, .asm_48c1e
 	inc hl
 .asm_48c1e
@@ -1598,7 +1672,7 @@ Function48c63:
 	scf
 	ret
 
-Unreferenced_Function48c8e:
+Unreferenced_Function48c8e: ; unreferenced
 	ld hl, wd019 + $11
 	ld d, h
 	ld e, l
@@ -1817,3 +1891,4 @@ Function48d94:
 	or b
 	ld [hl], a
 	ret
+
