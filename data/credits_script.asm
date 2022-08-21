@@ -162,6 +162,22 @@ CreditsScript:
 	db         TETSUJI_OOTA, 1
 	db        KOHJI_NISHINO, 2
 	db        NOBUHIRO_SEYA, 3
+	
+	db CREDITS_WAIT, 12	
+
+	db    MOBILE_PRJ_LEADER, 0
+	db           TORU_OSAWA, 1
+
+	db CREDITS_WAIT, 12
+
+	db     MOBILE_SYSTEM_AD, 0
+	db          TAKAO_OHARA, 1
+	db         YUICHIRO_ITO, 2
+
+	db CREDITS_WAIT, 12
+
+	db   MOBILE_STADIUM_DIR, 0
+	db        TAKAO_SHIMIZU, 1
 
 	db CREDITS_WAIT, 12
 
@@ -190,30 +206,33 @@ CreditsScript:
 ; Update the banner.
 	db CREDITS_SCENE, 3 ; Igglybuff
 
-	db     US_VERSION_STAFF, 2
+	db     US_VERSION_STAFF, 1
 
 	db CREDITS_WAIT, 9
 
 	db      US_COORDINATION, 1
-	db          GAIL_TILDEN, 2
-	db        HIRO_NAKAMURA, 3
+	db              KAI_ZEH, 2
+	db      HIROYUKI_UESUGI, 3
 
 	db CREDITS_WAIT, 12
-
+	
 	db      US_COORDINATION, 1
 	db       JUNICHI_MASUDA, 2
-	db        SETH_MCMAHILL, 3
+	db        KOHJI_NISHINO, 3
+	db      KUNUMI_KAWAMARA, 4
 
-	db CREDITS_WAIT, 12
+	db CREDITS_WAIT, 12	
 
 	db      US_COORDINATION, 1
-	db     HIROTO_ALEXANDER, 2
-	db     TERESA_LILLYGREN, 3
+	db           TANJA_BAAR, 2
+	db          KAI_NEUMANN, 3
 
 	db CREDITS_WAIT, 12
 
 	db     TEXT_TRANSLATION, 1
-	db        NOB_OGASAWARA, 2
+	db         ANDREA_SALVI, 2
+	db      ELENOR_ISBIDISH, 3
+	db      CALIMERO_TIIIUN, 4	
 
 	db CREDITS_WAIT, 12
 
@@ -223,9 +242,11 @@ CreditsScript:
 
 	db CREDITS_WAIT, 12
 
-	db         PAAD_TESTING, 1
-	db       THOMAS_HERTZOG, 2
-	db         ERIK_JOHNSON, 3
+	db      PRODUCT_TESTING, 0
+	db      MAURICE_TISDALE, 1
+	db      PATRICK_THIERET, 2
+	db        MATTHEW_MAWER, 3	
+	db ITALIAN_TESTING_TEAM, 4	
 
 	db CREDITS_WAIT, 12
 
@@ -247,19 +268,20 @@ CreditsScript:
 	db          KENJI_SAIKI, 2
 	db         ATSUSHI_TADA, 3
 	db          MIYUKI_SATO, 4
-
+	
 	db CREDITS_WAIT, 12
 
-	db       SPECIAL_THANKS, 0
+	db         PAAD_TESTING, 0
 	db     KIMIKO_NAKAMICHI, 1
-	db           AKITO_MORI, 2
+	db           AKIRA_YANO, 2
+	db        HIROSHI_AKUNE, 3	
 
 	db CREDITS_WAIT, 12
 
 	db       SPECIAL_THANKS, 0
-	db        GAKUZI_NOMOTO, 1
-	db           AI_MASHIMA, 2
-	db      KUNIMI_KAWAMURA, 3
+	db           AKITO_MORI, 1
+	db        GAKUZI_NOMOTO, 2
+	db           AI_MASHIMA, 3	
 
 	db CREDITS_WAIT, 12
 
