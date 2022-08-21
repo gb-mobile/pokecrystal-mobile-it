@@ -15,7 +15,7 @@ Primary Italian To-Do List:
 - Fix battle crash bug
 - Fix the graphics of the GBC only screen
 - Fix the graphics of the 'CRYSTALLO' unown in the intro cutscene.
-- Add in the Italian credits (including the cut mobile adapter credits)
+- Fix the weird behavior of the current ITA credits, which result in a crash
 - Adjust menu sizes to fit official Italian builds.
 - Translate/Replace any remaining English text.
 
