@@ -2047,19 +2047,19 @@ Function118b9a:
 	charmap " ", $20 ; revert to ascii
 
 ExchangeDownloadURL:
-	db "http://gameboy.datacenter.ne.jp/cgb/download?name=/01/CGB-BXTE/exchange/index.txt", 0
+	db "http://gameboy.datacenter.ne.jp/cgb/download?name=/01/CGB-BXTI/exchange/index.txt", 0
 
 BattleDownloadURL:
-	db "http://gameboy.datacenter.ne.jp/cgb/download?name=/01/CGB-BXTE/battle/index.txt", 0
+	db "http://gameboy.datacenter.ne.jp/cgb/download?name=/01/CGB-BXTI/battle/index.txt", 0
 
 NewsDownloadURL:
-	db "http://gameboy.datacenter.ne.jp/cgb/download?name=/01/CGB-BXTE/news/index.txt", 0
+	db "http://gameboy.datacenter.ne.jp/cgb/download?name=/01/CGB-BXTI/news/index.txt", 0
 
 MenuDownloadURL:
-	db "http://gameboy.datacenter.ne.jp/cgb/download?name=/01/CGB-BXTE/POKESTA/menu.cgb", 0
+	db "http://gameboy.datacenter.ne.jp/cgb/download?name=/01/CGB-BXTI/POKESTA/menu.cgb", 0
 
 IndexDownloadURL:
-	db "http://gameboy.datacenter.ne.jp/cgb/download?name=/01/CGB-BXTE/tamago/index.txt", 0
+	db "http://gameboy.datacenter.ne.jp/cgb/download?name=/01/CGB-BXTI/tamago/index.txt", 0
 
 ; validates the length of the received battle room (1428 bytes) or honor roll data (150 bytes)
 Unreferenced_Function118d35:
