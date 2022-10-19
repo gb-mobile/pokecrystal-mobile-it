@@ -1,4 +1,4 @@
-MobileMenuUIGFX:
+GFX_49c0c:
 INCBIN "gfx/unknown/049c0c.2bpp"
 
 MainMenu:
